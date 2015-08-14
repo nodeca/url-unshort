@@ -1,0 +1,77 @@
+#
+# The list of domains handled by internal rules
+#
+
+#12.08.2015 works bad - 0rz.tw
+ - 2.gp:
+     aliases: [ 7.ly ]
+ - adfa.st
+ - alturl.com
+ - amzn.to
+ - b23.ru
+ - bit.do
+ - bit.ly:
+     aliases: [ aaja.de, adct.me, archdai.ly, aspt.co, ccwc.me, crks.me,
+       bcool.bz, detne.ws, digs.by, drudge.tw, emu.sc, go72.de, got.cr, j.mp,
+       j-tv.me, hnnng.de, s.htc.com, kon.gg, livesi.de, perez.ly, rol.st,
+       scr.bi, theatln.tc, tgr.ph, trib.in, utsd.us, yhoo.it ]
+ - budurl.com
+ - chilp.it
+ - clck.ru
+ - cort.as
+ - cutt.us
+ - db.tt
+ - fave.co
+ - flic.kr
+ - fur.ly
+ - goo.gl
+ - is.gd
+ - korta.nu
+ - macte.ch
+ - merky.de
+ - migre.me
+ - minu.me:
+     select: '.general a'
+ - notlong.com:
+     match: '^(https?:)//[a-zA-Z0-9_-]+\.notlong\.com/'
+ - nsfw.in:
+     select: '#long_url > a'
+ - ow.ly:
+     aliases: [ owl.li, ht.ly ]
+ - o-x.fr
+ - qr.net
+ - scrnch.me
+ - shorl.com
+ - smsh.me:
+     select: '#redirectorTitle'
+ - smu.gs
+ - snipurl.com:
+     aliases: [ snurl.com, snipr.com, sn.im ]
+ - soo.gd
+ - t.co
+ - tiny.cc
+ - tiny.ly
+ - tiny.pl
+ - tinyurl.com
+#- tmblr.co:
+#    aliases: [ tumblr.com ]
+ - tnij.org
+ - to.ly
+ - tr.im
+ - trim.li
+ - tw.gs
+ - ur1.ca
+ - url.az:
+     select: '.redirect'
+ - url.ie
+ - v.gd:
+     select: '.biglink'
+ - vk.cc
+ - vurl.com
+ - wp.me
+ - xurl.es
+ - thecow.me:
+     select: '#glu'
+ - ➡.ws:
+     aliases: [ ➯.ws, ➔.ws, ➞.ws, ➽.ws, ➹.ws, ✩.ws, ✿.ws, ❥.ws, ›.ws,
+                ⌘.ws, ‽.ws, ☁.ws, ta.gd, ri.ms ]

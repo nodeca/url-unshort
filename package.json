@@ -1,0 +1,29 @@
+{
+  "name": "url-unshort",
+  "version": "0.0.0",
+  "description": "Expand urls provided by url shortening services.",
+  "keywords": [
+    "unshort",
+    "expand",
+    "url"
+  ],
+  "repository": "nodeca/url-unshort",
+  "license": "MIT",
+  "scripts": {
+    "test": "make test"
+  },
+  "dependencies": {
+    "async": "^1.4.0",
+    "cheerio": "^0.19.0",
+    "js-yaml": "^3.3.1",
+    "lodash": "^3.10.1",
+    "mdurl": "^1.0.0",
+    "mocha": "^2.2.5",
+    "request": "^2.60.0",
+    "require-all": "^1.1.0"
+  },
+  "devDependencies": {
+    "eslint": "0.24.0",
+    "eslint-plugin-nodeca": "^1.0.3"
+  }
+}
