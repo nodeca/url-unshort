@@ -3,7 +3,7 @@
 [![Build Status](https://img.shields.io/travis/nodeca/url-unshort/master.svg?style=flat)](https://travis-ci.org/nodeca/url-unshort)
 [![NPM version](https://img.shields.io/npm/v/url-unshort.svg?style=flat)](https://www.npmjs.org/package/url-unshort)
 
-> This library expands urls provided by url shortening services like `tinyurl` or `bit.ly`.
+> This library expands urls provided by url shortening services (see [full list](https://github.com/nodeca/url-unshort/blob/master/domains.yml)).
 
 ## Why should I use it?
 
