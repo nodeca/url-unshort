@@ -32,10 +32,10 @@ uu.expand('http://goo.gl/HwUfwd', function (err, url) {
   if (err) throw err;
 
   if (url) {
-    console.log(`Original url is: ${url}`);
+    console.log('Original url is: ${url}');
   } else {
     // no shortening service or an unknown one is used
-    console.log(`This url can't be expanded`);
+    console.log('This url can\'t be expanded');
   }
 });
 ```
@@ -78,10 +78,10 @@ uu.expand('http://goo.gl/HwUfwd', function (err, url) {
   if (err) throw err;
 
   if (url) {
-    console.log(`Original url is: ${url}`);
+    console.log('Original url is: ${url}');
   } else {
     // no shortening service or an unknown one is used
-    console.log(`This url can't be expanded`);
+    console.log('This url can\'t be expanded');
   }
 });
 ```
