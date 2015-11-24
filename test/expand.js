@@ -47,7 +47,7 @@ describe('Expand', function () {
 
   it('should expand regular url', function (callback) {
     uu.expand('http://example.org/regular', function (err, result) {
-      assert(!err);
+      assert.ifError(err);
       assert.equal(result, 'https://github.com/');
       callback();
     });
@@ -55,7 +55,7 @@ describe('Expand', function () {
 
   it('should expand url up to 3 levels', function (callback) {
     uu.expand('http://example.org/loop2', function (err, result) {
-      assert(!err);
+      assert.ifError(err);
       assert.equal(result, 'https://github.com/');
       callback();
     });
@@ -84,7 +84,7 @@ describe('Expand', function () {
 
   it('should not encode non-url characters', function (callback) {
     uu.expand('http://example.org/control', function (err, result) {
-      assert(!err);
+      assert.ifError(err);
       assert.equal(result, 'https://github.com/<foo\rbar baz>');
       callback();
     });
@@ -92,7 +92,7 @@ describe('Expand', function () {
 
   it('should preserve an anchor', function (callback) {
     uu.expand('http://example.org/regular#foobar', function (err, result) {
-      assert(!err);
+      assert.ifError(err);
       assert.equal(result, 'https://github.com/#foobar');
       callback();
     });
@@ -100,7 +100,7 @@ describe('Expand', function () {
 
   it('should respect destination anchor', function (callback) {
     uu.expand('http://example.org/hashy#quux', function (err, result) {
-      assert(!err);
+      assert.ifError(err);
       assert.equal(result, 'https://github.com/foo#bar');
       callback();
     });
@@ -108,7 +108,7 @@ describe('Expand', function () {
 
   it('should accept relative urls without protocol', function (callback) {
     uu.expand('//example.org/regular', function (err, result) {
-      assert(!err);
+      assert.ifError(err);
       assert.equal(result, 'https://github.com/');
       callback();
     });
@@ -116,7 +116,7 @@ describe('Expand', function () {
 
   it('should accept links to relative urls without protocol', function (callback) {
     uu.expand('http://example.org/rel1', function (err, result) {
-      assert(!err);
+      assert.ifError(err);
       assert.equal(result, '//github.com/foo');
       callback();
     });

@@ -35,11 +35,11 @@ describe('Expand', function () {
     cache = {};
 
     uu.expand('http://example.org/foo', function (err, result) {
-      assert(!err);
+      assert.ifError(err);
       assert.equal(result, 'http://foo.bar/');
 
       uu.expand('http://example.org/foo', function (err, result) {
-        assert(!err);
+        assert.ifError(err);
         assert.equal(result, 'http://foo.bar/');
         assert.equal(fetchCount, 1);
         callback();
@@ -51,8 +51,8 @@ describe('Expand', function () {
     cache = {};
 
     uu.expand('http://invalid-url.com/foo', function (err, result) {
-      assert(!err);
-      assert(!result);
+      assert.ifError(err);
+      assert.strictEqual(result, null);
       assert.deepEqual(cache, {});
       callback();
     });

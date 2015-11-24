@@ -20,7 +20,7 @@ describe('Default', function () {
     };
 
     uu.expand('http://example.org/foo', function (err, result) {
-      assert(!err);
+      assert.ifError(err);
       assert.equal(result, 'https://github.com/0');
       callback();
     });
@@ -33,7 +33,7 @@ describe('Default', function () {
     };
 
     uu.expand('http://example.org/bar', function (err, result) {
-      assert(!err);
+      assert.ifError(err);
       assert.equal(result, 'https://github.com/1');
       callback();
     });
@@ -46,7 +46,7 @@ describe('Default', function () {
     };
 
     uu.expand('http://example.org/zzz', function (err, result) {
-      assert(!err);
+      assert.ifError(err);
       assert.equal(result, null);
       callback();
     });
@@ -58,7 +58,7 @@ describe('Default', function () {
     };
 
     uu.expand('http://example.org/baz', function (err, result) {
-      assert(!err);
+      assert.ifError(err);
       assert.equal(result, null);
       callback();
     });
