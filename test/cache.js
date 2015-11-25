@@ -31,7 +31,7 @@ describe('Expand', function () {
     });
   });
 
-  it('should cache urls', function (callback) {
+  it('should cache urls', function (done) {
     cache = {};
 
     uu.expand('http://example.org/foo', function (err, result) {
@@ -42,19 +42,41 @@ describe('Expand', function () {
         assert.ifError(err);
         assert.equal(result, 'http://foo.bar/');
         assert.equal(fetchCount, 1);
-        callback();
+        done();
       });
     });
   });
 
-  it('should not cache invalid urls', function (callback) {
+  it('should not cache invalid urls', function (done) {
     cache = {};
 
     uu.expand('http://invalid-url.com/foo', function (err, result) {
       assert.ifError(err);
       assert.strictEqual(result, null);
       assert.deepEqual(cache, {});
-      callback();
+      done();
     });
   });
+
+
+  it('should resolve disabled services from cache, if used before', function (done) {
+    cache = { 'http://old.service.com/123': 'http://redirected.to/' };
+
+    uu.expand('http://old.service.com/123', function (err, result) {
+      assert.ifError(err);
+      assert.equal(result, 'http://redirected.to/');
+      done();
+    });
+  });
+
+  it('should forward hash to cached value', function (done) {
+    cache = { 'http://old.service.com/123': 'http://redirected.to/' };
+
+    uu.expand('http://old.service.com/123#foo', function (err, result) {
+      assert.ifError(err);
+      assert.equal(result, 'http://redirected.to/#foo');
+      done();
+    });
+  });
+
 });
