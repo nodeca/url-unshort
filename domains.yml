@@ -2,7 +2,7 @@
 # The list of domains handled by internal rules
 #
 
- - 0rz.tw
+ #- 0rz.tw
  - 2.gp:
      aliases: [ 7.ly ]
  #- adfa.st
