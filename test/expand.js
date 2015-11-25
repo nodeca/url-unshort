@@ -28,7 +28,11 @@ var urls = {
 
   // relative urls
   'http://example.org/rel1':    '//github.com/foo',
-  'http://example.org/rel2':    '/foo'
+  'http://example.org/rel2':    '/foo',
+
+  // l1 -> l2 -> null
+  'http://example.org/l1':      'http://example.org/l2',
+  'http://example.org/l2':      null
 };
 
 
@@ -129,4 +133,11 @@ describe('Expand', function () {
     });
   });
 
+  it('should properly expand url with last null fetch in nested redirects', function (callback) {
+    uu.expand('http://example.org/l1', function (err, result) {
+      assert.ifError(err);
+      assert.equal(result, 'http://example.org/l2');
+      callback();
+    });
+  });
 });

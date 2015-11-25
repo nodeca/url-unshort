@@ -79,4 +79,50 @@ describe('Expand', function () {
     });
   });
 
+  it('should cache null result after first fetch', function (callback) {
+    uu.add('example2.org', {
+      fetch: function (url, options, callback) {
+        callback(null, null);
+      }
+    });
+
+    cache = {};
+
+    uu.expand('http://example2.org/foo', function (err, result) {
+      assert.ifError(err);
+      assert.equal(result, null);
+      assert.deepEqual(cache, { 'http://example2.org/foo': null });
+
+      uu.expand('http://example2.org/foo', function (err, result) {
+        assert(!err);
+        assert.equal(result, null);
+
+        callback();
+      });
+    });
+  });
+
+  it('should properly cache last null fetch in nested redirects', function (callback) {
+    uu.add('example3.org', {
+      fetch: function (url, options, callback) {
+        callback(null, 'http://example4.org/test');
+      }
+    });
+
+    uu.add('example4.org', {
+      fetch: function (url, options, callback) {
+        callback(null, null);
+      }
+    });
+
+    cache = {};
+
+    uu.expand('http://example3.org/foo', function (err, result) {
+      assert.ifError(err);
+      assert.equal(result, 'http://example4.org/test');
+      assert.deepEqual(cache, { 'http://example3.org/foo': 'http://example4.org/test' });
+
+      callback();
+    });
+  });
 });
