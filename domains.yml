@@ -2,20 +2,20 @@
 # The list of domains handled by internal rules
 #
 
-#12.08.2015 works bad - 0rz.tw
+ - 0rz.tw
  - 2.gp:
      aliases: [ 7.ly ]
- - adfa.st
+ #- adfa.st
  - alturl.com
  - amzn.to
- - b23.ru
+ #- b23.ru
  - bit.do
  - bit.ly:
      aliases: [ aaja.de, adct.me, archdai.ly, aspt.co, ccwc.me, crks.me,
        bcool.bz, detne.ws, digs.by, drudge.tw, emu.sc, go72.de, got.cr, j.mp,
        j-tv.me, hnnng.de, s.htc.com, kon.gg, livesi.de, perez.ly, rol.st,
        scr.bi, theatln.tc, tgr.ph, trib.in, utsd.us, yhoo.it ]
- - budurl.com
+ - budurl.me
  - chilp.it
  - clck.ru
  - cort.as
@@ -53,9 +53,9 @@
  - tiny.ly
  - tiny.pl
  - tinyurl.com
-#- tmblr.co:
-#    aliases: [ tumblr.com ]
- - tnij.org
+ #- tmblr.co:
+ #   aliases: [ tumblr.com ]
+ #- tnij.org
  - to.ly
  - tr.im
  - trim.li
