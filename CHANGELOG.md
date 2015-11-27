@@ -1,3 +1,9 @@
+1.1.1 / 2015-11-27
+------------------
+
+- Improved cache use for edge case with empty result.
+
+
 1.1.0 / 2015-11-25
 ------------------
 
