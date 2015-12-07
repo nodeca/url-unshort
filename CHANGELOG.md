@@ -1,3 +1,9 @@
+1.1.2 / 2015-12-07
+------------------
+
+- Enchanced error info with `code` & `status` properties.
+
+
 1.1.1 / 2015-11-27
 ------------------
 
