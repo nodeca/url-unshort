@@ -69,7 +69,7 @@ describe('Default', function () {
       callback(null, { statusCode: 503 }, '');
     };
 
-    uu.expand('http://example.org/baz', function (err, result) {
+    uu.expand('http://example.org/baz', function (err) {
       assert(err.message.match(/Remote server error/));
       callback();
     });

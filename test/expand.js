@@ -72,21 +72,21 @@ describe('Expand', function () {
   });
 
   it('should fail on url nested more than 3 levels', function (callback) {
-    uu.expand('http://example.org/loop1', function (err, result) {
+    uu.expand('http://example.org/loop1', function (err) {
       assert.equal(err.message, 'Too many redirects');
       callback();
     });
   });
 
   it('should fail on links redirecting to themselves', function (callback) {
-    uu.expand('http://example.org/cycle', function (err, result) {
+    uu.expand('http://example.org/cycle', function (err) {
       assert.equal(err.message, 'Too many redirects');
       callback();
     });
   });
 
   it('should fail on bad protocols', function (callback) {
-    uu.expand('http://example.org/file', function (err, result) {
+    uu.expand('http://example.org/file', function (err) {
       assert.equal(err.message, 'Redirected to an invalid location');
       callback();
     });
@@ -133,7 +133,7 @@ describe('Expand', function () {
   });
 
   it('should reject links to relative urls without host', function (callback) {
-    uu.expand('http://example.org/rel2', function (err, result) {
+    uu.expand('http://example.org/rel2', function (err) {
       assert.equal(err.message, 'Redirected to an invalid location');
       callback();
     });

@@ -3,12 +3,10 @@
 
 
 var assert   = require('assert');
-var async    = require('async');
 var fs       = require('fs');
 var YAML     = require('js-yaml');
 var path     = require('path');
 var punycode = require('punycode');
-var request  = require('request');
 var URL      = require('url');
 var urls     = YAML.safeLoad(fs.readFileSync(path.join(__dirname, 'services.yml'), 'utf8'));
 var domains  = YAML.safeLoad(fs.readFileSync(path.join(__dirname, '..', 'domains.yml'), 'utf8'));
@@ -55,15 +53,9 @@ describe('Services', function () {
 
     links.forEach(function (link) {
 
-      it(link, function (done) {
-        uu.expand(link, function (err, result) {
-          if (err) {
-            done(err);
-            return;
-          }
-
+      it(link, function () {
+        return uu.expand(link).then(function (result) {
           assert.strictEqual(result, urls[link]);
-          done();
         });
       });
     });
