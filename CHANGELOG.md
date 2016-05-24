@@ -1,3 +1,10 @@
+2.0.0 / 2016-05-24
+------------------
+
+- Added Promise support in `.expand` method.
+- Services cleanup.
+
+
 1.1.3 / 2016-01-17
 ------------------
 
