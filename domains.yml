@@ -15,7 +15,7 @@
        bcool.bz, detne.ws, digs.by, drudge.tw, emu.sc, go72.de, got.cr, j.mp,
        j-tv.me, hnnng.de, s.htc.com, kon.gg, livesi.de, perez.ly, rol.st,
        scr.bi, theatln.tc, tgr.ph, trib.in, utsd.us, yhoo.it ]
- - budurl.me
+ #- budurl.me
  - chilp.it
  - clck.ru
  - cort.as
@@ -38,7 +38,7 @@
      select: '#long_url > a'
  - ow.ly:
      aliases: [ owl.li, ht.ly ]
- - o-x.fr
+ #- o-x.fr
  - qr.net
  - scrnch.me
  - shorl.com
@@ -59,16 +59,18 @@
  - to.ly
  - tr.im
  - trim.li
- - tw.gs
+ - tw.gs:
+    select: '#lurllink > a'
  - ur1.ca
- - url.az:
-     select: '.redirect'
+ #- url.az:
+ #    select: '.redirect'
  - url.ie
  - v.gd:
      select: '.biglink'
  - vk.cc
  - vk.com
- - vurl.com
+ - vurl.com:
+     select: '#redb'
  - wp.me
  - xurl.es
  - thecow.me:
