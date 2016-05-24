@@ -57,6 +57,12 @@ describe('Expand', function () {
     });
   });
 
+  it('should expand regular url via Promise', function () {
+    return uu.expand('http://example.org/regular').then(function (result) {
+      assert.equal(result, 'https://github.com/');
+    });
+  });
+
   it('should expand url up to 3 levels', function (callback) {
     uu.expand('http://example.org/loop2', function (err, result) {
       assert.ifError(err);
