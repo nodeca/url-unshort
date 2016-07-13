@@ -11,6 +11,7 @@ var URL      = require('url');
 var urls     = YAML.safeLoad(fs.readFileSync(path.join(__dirname, 'services.yml'), 'utf8'));
 var domains  = YAML.safeLoad(fs.readFileSync(path.join(__dirname, '..', 'domains.yml'), 'utf8'));
 var uu       = require('../')();
+var parallel = require('mocha.parallel');
 
 
 var checkAll = (process.env.LINKS_CHECK === 'all');
@@ -46,7 +47,7 @@ describe('Services', function () {
                      actual.map(truncateDomain).map(punycode.toUnicode).sort());
   });
 
-  describe('ping services', function () {
+  parallel('ping services', function () {
     var links = Object.keys(urls);
 
     if (!checkAll) { links = links.slice(0, 1); }

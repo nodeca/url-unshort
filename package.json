@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "eslint": "~3.0.1",
-    "mocha": "^2.2.5"
+    "mocha": "^2.2.5",
+    "mocha.parallel": "^0.12.0"
   }
 }
