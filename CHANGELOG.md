@@ -1,3 +1,11 @@
+2.1.0 / 2016-07-15
+------------------
+
+- Added `google.*/url` unshortening.
+- Reenabled some glitching services.
+- Added incident dates to default config for tracking progress in future.
+
+
 2.0.0 / 2016-05-24
 ------------------
 
