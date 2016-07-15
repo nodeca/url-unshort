@@ -28,6 +28,8 @@
  - flic.kr
  - fur.ly
  - goo.gl
+ - google.com:
+     match: '^(https?:)//(www\.)?google(\.\w+)(\.\w+)?/'
  - is.gd
  - korta.nu
  # 2016.07.13, they trashed old links and disabled foreign domains
