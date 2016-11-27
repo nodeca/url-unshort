@@ -2,10 +2,10 @@
 'use strict';
 
 
-var assert = require('assert');
+const assert = require('assert');
 
 
-var urls = {
+const urls = {
   'http://example.org/regular': 'https://github.com/',
 
   // loop1 -> loop2 -> loop3 -> loop4 -> github
@@ -37,113 +37,101 @@ var urls = {
 
 
 describe('Expand', function () {
-  var uu;
+  let uu;
 
   before(function () {
     uu = require('../')();
 
     uu.add('example.org', {
-      fetch: function (url, options, callback) {
-        callback(null, urls[url.replace(/^https/, 'http')]);
+      fetch(url) {
+        return Promise.resolve(urls[url.replace(/^https/, 'http')]);
       }
     });
   });
 
-  it('should expand regular url', function (callback) {
-    uu.expand('http://example.org/regular', function (err, result) {
+
+  it('should expand regular url via callback', function (callback) {
+    uu.expand('http://example.org/regular', (err, result) => {
       assert.ifError(err);
       assert.equal(result, 'https://github.com/');
       callback();
     });
   });
+
 
   it('should expand regular url via Promise', function () {
-    return uu.expand('http://example.org/regular').then(function (result) {
+    return uu.expand('http://example.org/regular').then(result => {
       assert.equal(result, 'https://github.com/');
     });
   });
 
-  it('should expand url up to 3 levels', function (callback) {
-    uu.expand('http://example.org/loop2', function (err, result) {
-      assert.ifError(err);
-      assert.equal(result, 'https://github.com/');
-      callback();
-    });
+
+  it('should expand url up to 3 levels', function () {
+    return uu.expand('http://example.org/loop2')
+      .then(result => assert.equal(result, 'https://github.com/'));
   });
 
-  it('should fail on url nested more than 3 levels', function (callback) {
-    uu.expand('http://example.org/loop1', function (err) {
-      assert.equal(err.message, 'Too many redirects');
-      callback();
-    });
+
+  it('should fail on url nested more than 3 levels', function () {
+    return uu.expand('http://example.org/loop1')
+      .then(() => { throw new Error('error should be thrown here'); })
+      .catch(err => assert.equal(err.message, 'Too many redirects'));
   });
 
-  it('should fail on links redirecting to themselves', function (callback) {
-    uu.expand('http://example.org/cycle', function (err) {
-      assert.equal(err.message, 'Too many redirects');
-      callback();
-    });
+
+  it('should fail on links redirecting to themselves', function () {
+    return uu.expand('http://example.org/cycle')
+      .then(() => { throw new Error('error should be thrown here'); })
+      .catch(err => assert.equal(err.message, 'Too many redirects'));
   });
 
-  it('should fail on bad protocols', function (callback) {
-    uu.expand('http://example.org/file', function (err) {
-      assert.equal(err.message, 'Redirected to an invalid location');
-      callback();
-    });
+
+  it('should fail on bad protocols', function () {
+    return uu.expand('http://example.org/file')
+      .then(() => { throw new Error('error should be thrown here'); })
+      .catch(err => assert.equal(err.message, 'Redirected to an invalid location'));
   });
 
-  it('should not encode non-url characters', function (callback) {
-    uu.expand('http://example.org/control', function (err, result) {
-      assert.ifError(err);
-      assert.equal(result, 'https://github.com/<foo\rbar baz>');
-      callback();
-    });
+
+  it('should not encode non-url characters', function () {
+    return uu.expand('http://example.org/control')
+      .then(result => assert.equal(result, 'https://github.com/<foo\rbar baz>'));
   });
 
-  it('should preserve an anchor', function (callback) {
-    uu.expand('http://example.org/regular#foobar', function (err, result) {
-      assert.ifError(err);
-      assert.equal(result, 'https://github.com/#foobar');
-      callback();
-    });
+
+  it('should preserve an anchor', function () {
+    return uu.expand('http://example.org/regular#foobar')
+      .then(result => assert.equal(result, 'https://github.com/#foobar'));
   });
 
-  it('should respect destination anchor', function (callback) {
-    uu.expand('http://example.org/hashy#quux', function (err, result) {
-      assert.ifError(err);
-      assert.equal(result, 'https://github.com/foo#bar');
-      callback();
-    });
+
+  it('should respect destination anchor', function () {
+    return uu.expand('http://example.org/hashy#quux')
+      .then(result => assert.equal(result, 'https://github.com/foo#bar'));
   });
 
-  it('should accept relative urls without protocol', function (callback) {
-    uu.expand('//example.org/regular', function (err, result) {
-      assert.ifError(err);
-      assert.equal(result, 'https://github.com/');
-      callback();
-    });
+
+  it('should accept relative urls without protocol', function () {
+    return uu.expand('//example.org/regular')
+      .then(result => assert.equal(result, 'https://github.com/'));
   });
 
-  it('should accept links to relative urls without protocol', function (callback) {
-    uu.expand('http://example.org/rel1', function (err, result) {
-      assert.ifError(err);
-      assert.equal(result, '//github.com/foo');
-      callback();
-    });
+
+  it('should accept links to relative urls without protocol', function () {
+    return uu.expand('http://example.org/rel1')
+      .then(result => assert.equal(result, '//github.com/foo'));
   });
 
-  it('should reject links to relative urls without host', function (callback) {
-    uu.expand('http://example.org/rel2', function (err) {
-      assert.equal(err.message, 'Redirected to an invalid location');
-      callback();
-    });
+
+  it('should reject links to relative urls without host', function () {
+    return uu.expand('http://example.org/rel2')
+      .then(() => { throw new Error('error should be thrown here'); })
+      .catch(err => assert.equal(err.message, 'Redirected to an invalid location'));
   });
 
-  it('should properly expand url with last null fetch in nested redirects', function (callback) {
-    uu.expand('http://example.org/l1', function (err, result) {
-      assert.ifError(err);
-      assert.equal(result, 'http://example.org/l2');
-      callback();
-    });
+
+  it('should properly expand url with last null fetch in nested redirects', function () {
+    return uu.expand('http://example.org/l1')
+      .then(result => assert.equal(result, 'http://example.org/l2'));
   });
 });

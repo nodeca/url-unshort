@@ -38,9 +38,24 @@ $ npm install url-unshort
 ## Basic usage
 
 ```js
+let uu = require('url-unshort')();
+
+uu.expand('http://goo.gl/HwUfwd')
+  .then(url => {
+    if (url) console.log('Original url is: ${url}');
+    // no shortening service or an unknown one is used
+    else console.log('This url can\'t be expanded');
+  })
+  .catch(err => console.log(err));
+
+// or with callback
+
 uu.expand('http://goo.gl/HwUfwd', (err, url) => {
   // connection error or similar
-  if (err) throw err;
+  if (err) {
+    console.log(err);
+    return;
+  }
 
   if (url) console.log('Original url is: ${url}');
   // no shortening service or an unknown one is used
@@ -49,11 +64,6 @@ uu.expand('http://goo.gl/HwUfwd', (err, url) => {
 
 // Or with promise
 
-uu.expand('http://goo.gl/HwUfwd').then(url => {
-  if (url) console.log('Original url is: ${url}');
-  // no shortening service or an unknown one is used
-  else console.log('This url can\'t be expanded');
-});
 ```
 
 ## API
@@ -66,8 +76,8 @@ When you create an instance, you can pass an options object to fine-tune unshort
 var uu = require('url-unshort')({
   nesting: 3,
   cache: {
-    get: function (key, callback) {},
-    set: function (key, value, callback) {}
+    get: function (key) {}, // -> Promise
+    set: function (key, value) {} // -> Promise
   },
 });
 ```
@@ -85,28 +95,27 @@ Available options are:
    You need to specify two async functions, `set(key, value, callback)` for `url-unshort` to set a value and `get(key, callback)` to get it back.
 
 
-### uu.expand(url [, callback])
+### uu.expand(url [, callback]) -> Promise
 
-Expand an URL supplied. If we don't know how to expand it, callback returns
-`null`. If callback not provider, return a `Promise`.
+Expand an URL supplied. If we don't know how to expand it, returns `null`.
 
 ```js
+let uu = require('url-unshort')();
+
+uu.expand('http://goo.gl/HwUfwd')
+  .then(url => {
+    if (url) console.log('Original url is: ${url}');
+    // no shortening service or an unknown one is used
+    else console.log('This url can\'t be expanded');
+  })
+  .catch(err => console.log(err));
+
+// or with callback
+
 uu.expand('http://goo.gl/HwUfwd', (err, url) => {
-  // connection error or similar
-  if (err) throw err;
-
-  if (url) console.log('Original url is: ${url}');
-  // no shortening service or an unknown one is used
-  else console.log('This url can\'t be expanded');
+  // ...
 });
 
-// Or with promise
-
-uu.expand('http://goo.gl/HwUfwd').then(url => {
-  if (url) console.log('Original url is: ${url}');
-  // no shortening service or an unknown one is used
-  else console.log('This url can\'t be expanded');
-});
 ```
 
 ### uu.add(domain [, options])
@@ -126,30 +135,13 @@ this behavior by supplying your own function in options.
 
 Options:
 
- - `select` (String)   - jquery-like selector used to retrieve url from the page;
- - `fetch`  (Function) - specify a custom function to retrieve expanded url;
+ - `select` (String)   - jquery-like selector used to retrieve url from the page
+ - `fetch`  (Function) - specify a custom function to retrieve expanded url,
+    see `./lib/providers/*` sources for example.
  - `match`  (String|RegExp) - custom regexp to use to match this domain.
 
 So a full-featured example of adding a domain would look like this:
 
-```js
-uu.add('goo.gl', {
-  fetch: (url, options, callback) => {
-    require('request')({
-      method: 'HEAD',
-      url: url,
-      followRedirect: false,
-    }, (err, res, body) => {
-      if (err) return callback(err);
-
-      if (res.statusCode >= 300 && res.statusCode < 400)
-        return callback(null, res.headers.location);
-      else
-        return callback();
-    });
-  }
-});
-```
 
 ## Security considerations
 
@@ -165,13 +157,11 @@ valid url as an output, you're encouraged to re-encode it like this:
 ```js
 var URL = require('url');
 
-uu.expand('http://goo.gl/HwUfwd', function (err, url) {
-  /* ... */
-
-  url = URL.format(URL.parse(url, null, true));
-
-  console.log(url);
-});
+uu.expand('http://goo.gl/HwUfwd')
+  .then(url => {
+    return url ? URL.format(URL.parse(url, null, true)) : null;
+  })
+  .then(url => console.log(url));
 ```
 
 Relative urls without a protocol are accepted, relative urls without a host

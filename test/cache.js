@@ -2,127 +2,110 @@
 'use strict';
 
 
-var assert = require('assert');
+const assert = require('assert');
 
 
-describe('Expand', function () {
-  var uu;
-  var fetchCount = 0;
-  var cache = {};
+describe('Cache', function () {
+  let uu;
+  let fetchCount = 0;
+  let cache = {};
 
   before(function () {
     uu = require('../')({
       cache: {
-        get: function (key, callback) {
-          callback(null, cache[key]);
-        },
-        set: function (key, value, callback) {
+        get: key => Promise.resolve(cache[key]),
+        set: (key, value) => {
           cache[key] = value;
-          callback();
+          return Promise.resolve(true);
         }
       }
     });
 
     uu.add('example.org', {
-      fetch: function (url, options, callback) {
+      fetch() {
         fetchCount++;
-        callback(null, 'http://foo.bar/');
+        return Promise.resolve('http://foo.bar/');
       }
     });
   });
 
-  it('should cache urls', function (done) {
+
+  it('should cache urls', function () {
     cache = {};
 
-    uu.expand('http://example.org/foo', function (err, result) {
-      assert.ifError(err);
-      assert.equal(result, 'http://foo.bar/');
-
-      uu.expand('http://example.org/foo', function (err, result) {
-        assert.ifError(err);
+    return uu.expand('http://example.org/foo')
+      .then(result => {
+        assert.equal(result, 'http://foo.bar/');
+        return uu.expand('http://example.org/foo');
+      })
+      .then(result => {
         assert.equal(result, 'http://foo.bar/');
         assert.equal(fetchCount, 1);
-        done();
       });
-    });
   });
 
-  it('should not cache invalid urls', function (done) {
+
+  it('should not cache invalid urls', function () {
     cache = {};
 
-    uu.expand('http://invalid-url.com/foo', function (err, result) {
-      assert.ifError(err);
+    return uu.expand('http://invalid-url.com/foo').then(result => {
       assert.strictEqual(result, null);
       assert.deepEqual(cache, {});
-      done();
     });
   });
 
 
-  it('should resolve disabled services from cache, if used before', function (done) {
+  it('should resolve disabled services from cache, if used before', function () {
     cache = { 'http://old.service.com/123': 'http://redirected.to/' };
 
-    uu.expand('http://old.service.com/123', function (err, result) {
-      assert.ifError(err);
+    return uu.expand('http://old.service.com/123').then(result => {
       assert.equal(result, 'http://redirected.to/');
-      done();
     });
   });
 
-  it('should forward hash to cached value', function (done) {
+  it('should forward hash to cached value', function () {
     cache = { 'http://old.service.com/123': 'http://redirected.to/' };
 
     uu.expand('http://old.service.com/123#foo', function (err, result) {
       assert.ifError(err);
       assert.equal(result, 'http://redirected.to/#foo');
-      done();
     });
   });
 
-  it('should cache null result after first fetch', function (callback) {
+
+  it('should cache null result after first fetch', function () {
     uu.add('example2.org', {
-      fetch: function (url, options, callback) {
-        callback(null, null);
-      }
+      fetch() { return Promise.resolve(null); }
     });
 
     cache = {};
 
-    uu.expand('http://example2.org/foo', function (err, result) {
-      assert.ifError(err);
-      assert.equal(result, null);
-      assert.deepEqual(cache, { 'http://example2.org/foo': null });
-
-      uu.expand('http://example2.org/foo', function (err, result) {
-        assert(!err);
+    return uu.expand('http://example2.org/foo')
+      .then(result => {
         assert.equal(result, null);
+        assert.deepEqual(cache, { 'http://example2.org/foo': null });
 
-        callback();
+        return uu.expand('http://example2.org/foo')
+          .then(result => assert.equal(result, null));
       });
-    });
   });
 
-  it('should properly cache last null fetch in nested redirects', function (callback) {
+  it('should properly cache last null fetch in nested redirects', function () {
     uu.add('example3.org', {
-      fetch: function (url, options, callback) {
-        callback(null, 'http://example4.org/test');
+      fetch() {
+        return Promise.resolve('http://example4.org/test');
       }
     });
 
     uu.add('example4.org', {
-      fetch: function (url, options, callback) {
-        callback(null, null);
-      }
+      fetch() { return Promise.resolve(null); }
     });
 
     cache = {};
 
-    uu.expand('http://example3.org/foo', function (err, result) {
-      assert.ifError(err);
+    return uu.expand('http://example3.org/foo').then(result => {
       assert.equal(result, 'http://example4.org/test');
       assert.deepEqual(cache, { 'http://example3.org/foo': 'http://example4.org/test' });
-
-      callback();
     });
   });
 });

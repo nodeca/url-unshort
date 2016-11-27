@@ -2,19 +2,19 @@
 'use strict';
 
 
-var assert   = require('assert');
-var fs       = require('fs');
-var YAML     = require('js-yaml');
-var path     = require('path');
-var punycode = require('punycode');
-var URL      = require('url');
-var urls     = YAML.safeLoad(fs.readFileSync(path.join(__dirname, 'services.yml'), 'utf8'));
-var domains  = YAML.safeLoad(fs.readFileSync(path.join(__dirname, '..', 'domains.yml'), 'utf8'));
-var uu       = require('../')();
-var parallel = require('mocha.parallel');
+const assert   = require('assert');
+const fs       = require('fs');
+const YAML     = require('js-yaml');
+const path     = require('path');
+const punycode = require('punycode');
+const URL      = require('url');
+const urls     = YAML.safeLoad(fs.readFileSync(path.join(__dirname, 'services.yml'), 'utf8'));
+const domains  = YAML.safeLoad(fs.readFileSync(path.join(__dirname, '..', 'domains.yml'), 'utf8'));
+const uu       = require('../')();
+const parallel = require('mocha.parallel');
 
 
-var checkAll = (process.env.LINKS_CHECK === 'all');
+const checkAll = (process.env.LINKS_CHECK === 'all');
 
 
 // get 2nd level domain, e.g. "foo.example.org" -> "example.org"
@@ -26,8 +26,8 @@ function truncateDomain(str) {
 describe('Services', function () {
   it('all services should be tested', function () {
 
-    var expected = [];
-    var actual = [];
+    let expected = [];
+    let actual = [];
 
     domains.forEach(function (d) {
       if (typeof d === 'string') {
@@ -38,7 +38,7 @@ describe('Services', function () {
     });
 
     Object.keys(urls).forEach(function (url) {
-      var u = URL.parse(url);
+      let u = URL.parse(url);
 
       actual.push(u.host);
     });
@@ -48,7 +48,7 @@ describe('Services', function () {
   });
 
   parallel('ping services', function () {
-    var links = Object.keys(urls);
+    let links = Object.keys(urls);
 
     if (!checkAll) { links = links.slice(0, 1); }
 

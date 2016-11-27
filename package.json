@@ -20,18 +20,19 @@
     "lib/"
   ],
   "dependencies": {
-    "any-promise": "^1.3.0",
-    "cheerio": "^0.20.0",
+    "bluebird": "^3.4.6",
+    "cheerio": "^0.22.0",
+    "escape-string-regexp": "^1.0.5",
+    "got": "^6.6.3",
     "is-google-domain": "^1.0.0",
-    "js-yaml": "^3.3.1",
-    "lodash": "^4.0.0",
+    "js-yaml": "^3.7.0",
     "mdurl": "^1.0.0",
-    "request": "^2.60.0",
+    "punycode": "^2.0.1",
     "require-all": "^2.0.0"
   },
   "devDependencies": {
-    "eslint": "~3.0.1",
-    "mocha": "^2.2.5",
-    "mocha.parallel": "^0.12.0"
+    "eslint": "^3.11.0",
+    "mocha": "^3.2.0",
+    "mocha.parallel": "^0.13.0"
   }
 }
