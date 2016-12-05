@@ -1,6 +1,6 @@
 {
   "name": "url-unshort",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Expand urls provided by url shortening services.",
   "keywords": [
     "unshort",

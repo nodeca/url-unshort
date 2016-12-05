@@ -1,7 +1,8 @@
-3.0.1 / WIP
+3.1.0 / 2016-12-05
 ------------------
 
- - `err.status` -> `err.statusCode`
+ - `err.status` -> `err.statusCode` (old `err.status` still exists for backward
+   compatibility, but will be deprecated).
 
 
 3.0.0 / 2016-11-27
