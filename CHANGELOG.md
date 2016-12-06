@@ -4,7 +4,8 @@
 - Move request options to `options.request`.
 - Update default User-Agent string.
 - Deprecate `error.status` (use `error.statusCode`).
-
+- Add more info (code) to error messages.
+- flic.kr should use `.request()` method.
 
 3.1.0 / 2016-12-05
 ------------------
