@@ -6,6 +6,7 @@
 - Deprecate `error.status` (use `error.statusCode`).
 - Add more info (code) to error messages.
 - flic.kr should use `.request()` method.
+- Increase default request timeout to 30 seconds.
 
 3.1.0 / 2016-12-05
 ------------------
