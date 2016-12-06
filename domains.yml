@@ -26,7 +26,8 @@
  - db.tt
  - fave.co
  - flic.kr
- - fur.ly
+ # 2016.12.06, 404, empty main page
+ #- fur.ly
  - goo.gl
  - google.com:
      match: '^(https?:)//(www\.)?google(\.\w+)(\.\w+)?/'
@@ -46,7 +47,8 @@
      aliases: [ owl.li, ht.ly ]
  # 2016.07.13, domain lost
  #- o-x.fr
- - qr.net
+ # 2016.12.06, not works, strange default redirects
+ #- qr.net
  - scrnch.me
  - shorl.com
  # 2016.07.13, db error on site
@@ -60,14 +62,16 @@
  # 2016.07.13, Domain blacklisted by idiots from RKN. Viva Russia!
  - tiny.cc
  # 2016.07.13, site is not responding
- - tiny.ly
+ # 2016.12.06, site is not responding
+ #- tiny.ly
  - tiny.pl
  - tinyurl.com
  #- tmblr.co:
  #   aliases: [ tumblr.com ]
  - tnij.org
  # 2016.07.13, cloudflare error page
- - to.ly
+ # 2016.12.06, cloudflare error page
+ #- to.ly
  # 2016.07.13, started adding shit like
  # ?utm_source=tr.im&utm_medium=no_referer&utm_campaign=tr.im%2FTICyr&utm_content=direct_input
  # to redirected links
@@ -75,6 +79,7 @@
  - trim.li
  - tw.gs:
     select: '#lurllink > a'
+ # 2016.12.06, very slow
  - ur1.ca
  # 2016.07.13, become adware with intermediate page
  #- url.az:
@@ -87,7 +92,8 @@
  - vurl.com:
      select: '#redb'
  - wp.me
- - xurl.es
+ # 2016.12.06 not responding
+ #- xurl.es
  - thecow.me:
      select: '#glu'
  - ➡.ws:
