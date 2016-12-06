@@ -22,6 +22,7 @@
   "dependencies": {
     "bluebird": "^3.4.6",
     "cheerio": "^0.22.0",
+    "deepmerge": "^1.3.1",
     "escape-string-regexp": "^1.0.5",
     "got": "^6.6.3",
     "is-google-domain": "^1.0.0",

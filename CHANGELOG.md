@@ -1,3 +1,11 @@
+4.0.0 / WIP
+------------------
+
+- Move request options to `options.request`.
+- Update default User-Agent string.
+- Deprecate `error.status` (use `error.statusCode`).
+
+
 3.1.0 / 2016-12-05
 ------------------
 
