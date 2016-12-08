@@ -1,4 +1,4 @@
-4.0.0 / WIP
+4.0.0 / 2016-12-08
 ------------------
 
 - Move request options to `options.request`.
