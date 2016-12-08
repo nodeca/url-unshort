@@ -84,15 +84,23 @@ var uu = require('url-unshort')({
 
 Available options are:
 
- - `nesting` (Number, default: `3`) - stop resolving urls when `nesting` amount of redirects is reached.
+- `nesting` (Number, default: `3`) - stop resolving urls
+  when `nesting` amount of redirects is reached.
 
-   It happens if one shortening service refers to a link belonging to another shortening service which in turn points to yet another one and so on.
+  It happens if one shortening service refers to a link belonging to
+  another shortening service which in turn points to yet another one
+  and so on.
 
-   If this limit is reached, `expand()` will return an error.
+  If this limit is reached, `expand()` will return an error.
 
- - `cache` (Object) - set a custom cache implementation (e.g. if you want to store urls in Redis).
+- `cache` (Object) - set a custom cache implementation (e.g. if you wish
+  to store urls in Redis).
 
-   You need to specify two async functions, `set(key, value, callback)` for `url-unshort` to set a value and `get(key, callback)` to get it back.
+  You need to specify 2 promise-based functions, `set(key, value)` & `get(key)`.
+
+- `request` (Object) - default options for
+  [got](https://github.com/sindresorhus/got) in `.request()` method. Can be
+  used to set custom `User-Agent` and other headers.
 
 
 ### uu.expand(url [, callback]) -> Promise
