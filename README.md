@@ -1,5 +1,7 @@
 # url-unshort
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/nodeca/url-unshort.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://img.shields.io/travis/nodeca/url-unshort/master.svg?style=flat)](https://travis-ci.org/nodeca/url-unshort)
 [![NPM version](https://img.shields.io/npm/v/url-unshort.svg?style=flat)](https://www.npmjs.org/package/url-unshort)
 
