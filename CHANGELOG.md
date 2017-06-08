@@ -1,4 +1,4 @@
-5.0.0 / WIP
+5.0.0 / 2017-06-08
 ------------------
 
 - Switch to native async/await (need nodejs 7.+)
