@@ -1,3 +1,10 @@
+5.0.0 / WIP
+------------------
+
+- Switch to native async/await (need nodejs 7.+)
+- Drop callbacks support.
+
+
 4.1.0 / 2017-06-08
 ------------------
 

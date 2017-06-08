@@ -50,15 +50,6 @@ describe('Expand', function () {
   });
 
 
-  it('should expand regular url via callback', function (callback) {
-    uu.expand('http://example.org/regular', (err, result) => {
-      assert.ifError(err);
-      assert.equal(result, 'https://github.com/');
-      callback();
-    });
-  });
-
-
   it('should expand regular url via Promise', function () {
     return uu.expand('http://example.org/regular').then(result => {
       assert.equal(result, 'https://github.com/');

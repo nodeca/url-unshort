@@ -47,23 +47,6 @@ uu.expand('http://goo.gl/HwUfwd')
     else console.log('This url can\'t be expanded');
   })
   .catch(err => console.log(err));
-
-// or with callback
-
-uu.expand('http://goo.gl/HwUfwd', (err, url) => {
-  // connection error or similar
-  if (err) {
-    console.log(err);
-    return;
-  }
-
-  if (url) console.log('Original url is: ${url}');
-  // no shortening service or an unknown one is used
-  else console.log('This url can\'t be expanded');
-});
-
-// Or with promise
-
 ```
 
 ## API
@@ -103,7 +86,7 @@ Available options are:
   used to set custom `User-Agent` and other headers.
 
 
-### uu.expand(url [, callback]) -> Promise
+### uu.expand(url) -> Promise
 
 Expand an URL supplied. If we don't know how to expand it, returns `null`.
 
@@ -117,13 +100,6 @@ uu.expand('http://goo.gl/HwUfwd')
     else console.log('This url can\'t be expanded');
   })
   .catch(err => console.log(err));
-
-// or with callback
-
-uu.expand('http://goo.gl/HwUfwd', (err, url) => {
-  // ...
-});
-
 ```
 
 ### uu.add(domain [, options])

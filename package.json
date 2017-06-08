@@ -20,7 +20,6 @@
     "lib/"
   ],
   "dependencies": {
-    "bluebird": "^3.4.6",
     "cheerio": "^0.22.0",
     "deepmerge": "^1.3.1",
     "escape-string-regexp": "^1.0.5",
@@ -35,5 +34,8 @@
     "eslint": "^3.11.0",
     "mocha": "^3.2.0",
     "mocha.parallel": "^0.15.2"
+  },
+  "engines": {
+    "node": ">=7"
   }
 }

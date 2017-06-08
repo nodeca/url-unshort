@@ -2,6 +2,9 @@ env:
   node: true
   es6:  true
 
+parserOptions:
+  ecmaVersion: '2017'
+
 rules:
   accessor-pairs:         2
   array-bracket-spacing:  [ 2, "always", { "singleValue": true, "objectsInArrays": true, "arraysInArrays": true } ]
