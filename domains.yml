@@ -3,22 +3,14 @@
 #
 
  - 0rz.tw
- - 2.gp:
-     aliases: [ 7.ly ]
- # 2016.07.13, domain undelegated
- #- adfa.st
  - alturl.com
  - amzn.to
- # 2016.07.13, not responding
- #- b23.ru
  - bit.do
  - bit.ly:
      aliases: [ aaja.de, adct.me, archdai.ly, aspt.co, ccwc.me, crks.me,
        bcool.bz, detne.ws, digs.by, drudge.tw, emu.sc, go72.de, got.cr, j.mp,
        j-tv.me, hnnng.de, s.htc.com, kon.gg, livesi.de, perez.ly, rol.st,
        scr.bi, theatln.tc, tgr.ph, trib.in, utsd.us, yhoo.it ]
- # 2016.07.13, become adware, old links not work
- #- budurl.me
  - chilp.it
  - clck.ru
  - cort.as
@@ -26,64 +18,35 @@
  - db.tt
  - fave.co
  - flic.kr
- # 2016.12.06, 404, empty main page
- #- fur.ly
  - goo.gl
  - google.com:
      match: '^(https?:)//(www\.)?google(\.\w+)(\.\w+)?/'
  - is.gd
  - korta.nu
- # 2016.07.13, they trashed old links and disabled foreign domains
- #- macte.ch
  - merky.de
- - migre.me
- - minu.me:
-     select: '.general a'
  - notlong.com:
      match: '^(https?:)//[a-zA-Z0-9_-]+\.notlong\.com/'
- - nsfw.in:
-     select: '#long_url > a'
  - ow.ly:
      aliases: [ owl.li, ht.ly ]
- # 2016.07.13, domain lost
- #- o-x.fr
- # 2016.12.06, not works, strange default redirects
- #- qr.net
- - scrnch.me
  - shorl.com
- # 2016.07.13, db error on site
- - smsh.me:
-     select: '#redirectorTitle'
  - smu.gs
+ # 2021.11.30 "We're migrating to a new server"
  - snipurl.com:
      aliases: [ snurl.com, snipr.com, sn.im ]
  - soo.gd
  - t.co
  # 2016.07.13, Domain blacklisted by idiots from RKN. Viva Russia!
  - tiny.cc
- # 2016.07.13, site is not responding
- # 2016.12.06, site is not responding
- #- tiny.ly
  - tiny.pl
  - tinyurl.com
- #- tmblr.co:
- #   aliases: [ tumblr.com ]
- - tnij.org
- # 2016.07.13, cloudflare error page
- # 2016.12.06, cloudflare error page
- #- to.ly
+ - tmblr.co:
+    aliases: [ tumblr.com ]
  # 2016.07.13, started adding shit like
  # ?utm_source=tr.im&utm_medium=no_referer&utm_campaign=tr.im%2FTICyr&utm_content=direct_input
  # to redirected links
  - tr.im
- - trim.li
  - tw.gs:
     select: '#lurllink > a'
- # 2016.12.06, very slow
- - ur1.ca
- # 2016.07.13, become adware with intermediate page
- #- url.az:
- #    select: '.redirect'
  - url.ie
  - v.gd:
      select: '.biglink'
@@ -92,10 +55,6 @@
  - vurl.com:
      select: '#redb'
  - wp.me
- # 2016.12.06 not responding
- #- xurl.es
+ - xurl.es
  - thecow.me:
      select: '#glu'
- - ➡.ws:
-     aliases: [ ➯.ws, ➔.ws, ➞.ws, ➽.ws, ➹.ws, ✩.ws, ✿.ws, ❥.ws, ›.ws,
-                ⌘.ws, ‽.ws, ☁.ws, ta.gd, ri.ms ]
