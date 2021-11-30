@@ -2,59 +2,59 @@
 # The list of domains handled by internal rules
 #
 
- - 0rz.tw
- - alturl.com
- - amzn.to
- - bit.do
- - bit.ly:
-     aliases: [ aaja.de, adct.me, archdai.ly, aspt.co, ccwc.me, crks.me,
-       bcool.bz, detne.ws, digs.by, drudge.tw, emu.sc, go72.de, got.cr, j.mp,
-       j-tv.me, hnnng.de, s.htc.com, kon.gg, livesi.de, perez.ly, rol.st,
-       scr.bi, theatln.tc, tgr.ph, trib.in, utsd.us, yhoo.it ]
- - chilp.it
- - clck.ru
- - cort.as
- - cutt.us
- - db.tt
- - fave.co
- - flic.kr
- - goo.gl
- - google.com:
-     match: '^(https?:)//(www\.)?google(\.\w+)(\.\w+)?/'
- - is.gd
- - korta.nu
- - merky.de
- - notlong.com:
-     match: '^(https?:)//[a-zA-Z0-9_-]+\.notlong\.com/'
- - ow.ly:
-     aliases: [ owl.li, ht.ly ]
- - shorl.com
- - smu.gs
- # 2021.11.30 "We're migrating to a new server"
- - snipurl.com:
-     aliases: [ snurl.com, snipr.com, sn.im ]
- - soo.gd
- - t.co
- # 2016.07.13, Domain blacklisted by idiots from RKN. Viva Russia!
- - tiny.cc
- - tiny.pl
- - tinyurl.com
- - tmblr.co:
+- 0rz.tw
+- alturl.com
+- amzn.to
+- bit.do
+- bit.ly:
+    aliases: [ aaja.de, adct.me, archdai.ly, aspt.co, ccwc.me, crks.me,
+      bcool.bz, detne.ws, digs.by, drudge.tw, emu.sc, go72.de, got.cr, j.mp,
+      j-tv.me, hnnng.de, s.htc.com, kon.gg, livesi.de, perez.ly, rol.st,
+      scr.bi, theatln.tc, tgr.ph, trib.in, utsd.us, yhoo.it ]
+- chilp.it
+- clck.ru
+- cort.as
+- cutt.us
+- db.tt
+- fave.co
+- flic.kr
+- goo.gl
+- google.com:
+    match: '^(https?:)//(www\.)?google(\.\w+)(\.\w+)?/'
+- is.gd
+- korta.nu
+- merky.de
+- notlong.com:
+    match: '^(https?:)//[a-zA-Z0-9_-]+\.notlong\.com/'
+- ow.ly:
+    aliases: [ owl.li, ht.ly ]
+- shorl.com
+- smu.gs
+# 2021.11.30 "We're migrating to a new server"
+- snipurl.com:
+    aliases: [ snurl.com, snipr.com, sn.im ]
+- soo.gd
+- t.co
+# 2016.07.13, Domain blacklisted by idiots from RKN. Viva Russia!
+- tiny.cc
+- tiny.pl
+- tinyurl.com
+- tmblr.co:
     aliases: [ tumblr.com ]
- # 2016.07.13, started adding shit like
- # ?utm_source=tr.im&utm_medium=no_referer&utm_campaign=tr.im%2FTICyr&utm_content=direct_input
- # to redirected links
- - tr.im
- - tw.gs:
+# 2016.07.13, started adding shit like
+# ?utm_source=tr.im&utm_medium=no_referer&utm_campaign=tr.im%2FTICyr&utm_content=direct_input
+# to redirected links
+- tr.im
+- tw.gs:
     select: '#lurllink > a'
- - url.ie
- - v.gd:
-     select: '.biglink'
- - vk.cc
- - vk.com
- - vurl.com:
-     select: '#redb'
- - wp.me
- - xurl.es
- - thecow.me:
-     select: '#glu'
+- url.ie
+- v.gd:
+    select: '.biglink'
+- vk.cc
+- vk.com
+- vurl.com:
+    select: '#redb'
+- wp.me
+- xurl.es
+- thecow.me:
+    select: '#glu'
