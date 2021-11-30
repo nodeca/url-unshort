@@ -8,8 +8,8 @@ const YAML     = require('js-yaml');
 const path     = require('path');
 const punycode = require('punycode');
 const URL      = require('url');
-const urls     = YAML.safeLoad(fs.readFileSync(path.join(__dirname, 'services.yml'), 'utf8'));
-const domains  = YAML.safeLoad(fs.readFileSync(path.join(__dirname, '..', 'domains.yml'), 'utf8'));
+const urls     = YAML.load(fs.readFileSync(path.join(__dirname, 'services.yml'), 'utf8'));
+const domains  = YAML.load(fs.readFileSync(path.join(__dirname, '..', 'domains.yml'), 'utf8'));
 const uu       = require('../')();
 const parallel = require('mocha.parallel');
 
