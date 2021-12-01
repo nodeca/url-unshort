@@ -8,99 +8,88 @@ describe('Cache', function () {
   let uu
   let fetchCount = 0
   let cache = {}
+  let result
 
-  before(function () {
+  before(() => {
     uu = require('../')({
       cache: {
-        get: key => Promise.resolve(cache[key]),
-        set: (key, value) => {
+        get: async key => cache[key],
+        set: async (key, value) => {
           cache[key] = value
-          return Promise.resolve(true)
+          return true
         }
       }
     })
 
     uu.add('example.org', {
-      fetch () {
+      async fetch () {
         fetchCount++
-        return Promise.resolve('http://foo.bar/')
+        return 'http://foo.bar/'
       }
     })
   })
 
-  it('should cache urls', function () {
+  it('should cache urls', async () => {
     cache = {}
 
-    return uu.expand('http://example.org/foo')
-      .then(result => {
-        assert.strictEqual(result, 'http://foo.bar/')
-        return uu.expand('http://example.org/foo')
-      })
-      .then(result => {
-        assert.strictEqual(result, 'http://foo.bar/')
-        assert.strictEqual(fetchCount, 1)
-      })
+    result = await uu.expand('http://example.org/foo')
+    assert.strictEqual(result, 'http://foo.bar/')
+
+    result = await uu.expand('http://example.org/foo')
+    assert.strictEqual(result, 'http://foo.bar/')
+    assert.strictEqual(fetchCount, 1)
   })
 
-  it('should not cache invalid urls', function () {
+  it('should not cache invalid urls', async () => {
     cache = {}
 
-    return uu.expand('http://invalid-url.com/foo').then(result => {
-      assert.strictEqual(result, null)
-      assert.deepStrictEqual(cache, {})
-    })
+    result = await uu.expand('http://invalid-url.com/foo')
+    assert.strictEqual(result, null)
+    assert.deepStrictEqual(cache, {})
   })
 
-  it('should resolve disabled services from cache, if used before', function () {
+  it('should resolve disabled services from cache, if used before', async () => {
     cache = { 'http://old.service.com/123': 'http://redirected.to/' }
 
-    return uu.expand('http://old.service.com/123').then(result => {
-      assert.strictEqual(result, 'http://redirected.to/')
-    })
+    result = await uu.expand('http://old.service.com/123')
+    assert.strictEqual(result, 'http://redirected.to/')
   })
 
-  it('should forward hash to cached value', function () {
+  it('should forward hash to cached value', async () => {
     cache = { 'http://old.service.com/123': 'http://redirected.to/' }
 
-    uu.expand('http://old.service.com/123#foo', function (err, result) {
-      assert.ifError(err)
-      assert.strictEqual(result, 'http://redirected.to/#foo')
-    })
+    result = await uu.expand('http://old.service.com/123#foo')
+    assert.strictEqual(result, 'http://redirected.to/#foo')
   })
 
-  it('should cache null result after first fetch', function () {
+  it('should cache null result after first fetch', async () => {
     uu.add('example2.org', {
-      fetch () { return Promise.resolve(null) }
+      fetch: async () => null
     })
 
     cache = {}
 
-    return uu.expand('http://example2.org/foo')
-      .then(result => {
-        assert.strictEqual(result, null)
-        assert.deepStrictEqual(cache, { 'http://example2.org/foo': null })
+    result = await uu.expand('http://example2.org/foo')
+    assert.strictEqual(result, null)
+    assert.deepStrictEqual(cache, { 'http://example2.org/foo': null })
 
-        return uu.expand('http://example2.org/foo')
-          .then(result => assert.strictEqual(result, null))
-      })
+    result = await uu.expand('http://example2.org/foo')
+    assert.strictEqual(result, null)
   })
 
-  it('should properly cache last null fetch in nested redirects', function () {
+  it('should properly cache last null fetch in nested redirects', async () => {
     uu.add('example3.org', {
-      fetch () {
-        return Promise.resolve('http://example4.org/test')
-      }
+      fetch: async () => 'http://example4.org/test'
     })
 
     uu.add('example4.org', {
-      fetch () { return Promise.resolve(null) }
+      fetch: async () => null
     })
 
     cache = {}
 
-    return uu.expand('http://example3.org/foo').then(result => {
-      assert.strictEqual(result, 'http://example4.org/test')
-      assert.deepStrictEqual(cache, { 'http://example3.org/foo': 'http://example4.org/test' })
-    })
+    result = await uu.expand('http://example3.org/foo')
+    assert.strictEqual(result, 'http://example4.org/test')
+    assert.deepStrictEqual(cache, { 'http://example3.org/foo': 'http://example4.org/test' })
   })
 })
