@@ -39,7 +39,7 @@ describe('Services', function () {
       actual.push(u.host)
     })
 
-    assert.deepEqual(expected.map(truncateDomain).map(punycode.toUnicode).sort(),
+    assert.deepStrictEqual(expected.map(truncateDomain).map(punycode.toUnicode).sort(),
       actual.map(truncateDomain).map(punycode.toUnicode).sort())
   })
 

@@ -33,12 +33,12 @@ describe('Cache', function () {
 
     return uu.expand('http://example.org/foo')
       .then(result => {
-        assert.equal(result, 'http://foo.bar/')
+        assert.strictEqual(result, 'http://foo.bar/')
         return uu.expand('http://example.org/foo')
       })
       .then(result => {
-        assert.equal(result, 'http://foo.bar/')
-        assert.equal(fetchCount, 1)
+        assert.strictEqual(result, 'http://foo.bar/')
+        assert.strictEqual(fetchCount, 1)
       })
   })
 
@@ -47,7 +47,7 @@ describe('Cache', function () {
 
     return uu.expand('http://invalid-url.com/foo').then(result => {
       assert.strictEqual(result, null)
-      assert.deepEqual(cache, {})
+      assert.deepStrictEqual(cache, {})
     })
   })
 
@@ -55,7 +55,7 @@ describe('Cache', function () {
     cache = { 'http://old.service.com/123': 'http://redirected.to/' }
 
     return uu.expand('http://old.service.com/123').then(result => {
-      assert.equal(result, 'http://redirected.to/')
+      assert.strictEqual(result, 'http://redirected.to/')
     })
   })
 
@@ -64,7 +64,7 @@ describe('Cache', function () {
 
     uu.expand('http://old.service.com/123#foo', function (err, result) {
       assert.ifError(err)
-      assert.equal(result, 'http://redirected.to/#foo')
+      assert.strictEqual(result, 'http://redirected.to/#foo')
     })
   })
 
@@ -77,11 +77,11 @@ describe('Cache', function () {
 
     return uu.expand('http://example2.org/foo')
       .then(result => {
-        assert.equal(result, null)
-        assert.deepEqual(cache, { 'http://example2.org/foo': null })
+        assert.strictEqual(result, null)
+        assert.deepStrictEqual(cache, { 'http://example2.org/foo': null })
 
         return uu.expand('http://example2.org/foo')
-          .then(result => assert.equal(result, null))
+          .then(result => assert.strictEqual(result, null))
       })
   })
 
@@ -99,8 +99,8 @@ describe('Cache', function () {
     cache = {}
 
     return uu.expand('http://example3.org/foo').then(result => {
-      assert.equal(result, 'http://example4.org/test')
-      assert.deepEqual(cache, { 'http://example3.org/foo': 'http://example4.org/test' })
+      assert.strictEqual(result, 'http://example4.org/test')
+      assert.deepStrictEqual(cache, { 'http://example3.org/foo': 'http://example4.org/test' })
     })
   })
 })

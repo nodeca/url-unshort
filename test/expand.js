@@ -49,66 +49,66 @@ describe('Expand', function () {
 
   it('should expand regular url via Promise', function () {
     return uu.expand('http://example.org/regular').then(result => {
-      assert.equal(result, 'https://github.com/')
+      assert.strictEqual(result, 'https://github.com/')
     })
   })
 
   it('should expand url up to 3 levels', function () {
     return uu.expand('http://example.org/loop2')
-      .then(result => assert.equal(result, 'https://github.com/'))
+      .then(result => assert.strictEqual(result, 'https://github.com/'))
   })
 
   it('should fail on url nested more than 3 levels', function () {
     return uu.expand('http://example.org/loop1')
       .then(() => { throw new Error('error should be thrown here') })
-      .catch(err => assert.equal(err.message, 'Too many redirects'))
+      .catch(err => assert.strictEqual(err.message, 'Too many redirects'))
   })
 
   it('should fail on links redirecting to themselves', function () {
     return uu.expand('http://example.org/cycle')
       .then(() => { throw new Error('error should be thrown here') })
-      .catch(err => assert.equal(err.message, 'Too many redirects'))
+      .catch(err => assert.strictEqual(err.message, 'Too many redirects'))
   })
 
   it('should fail on bad protocols', function () {
     return uu.expand('http://example.org/file')
       .then(() => { throw new Error('error should be thrown here') })
-      .catch(err => assert.equal(err.message, 'Redirected to an invalid location'))
+      .catch(err => assert.strictEqual(err.message, 'Redirected to an invalid location'))
   })
 
   it('should not encode non-url characters', function () {
     return uu.expand('http://example.org/control')
-      .then(result => assert.equal(result, 'https://github.com/<foo\rbar baz>'))
+      .then(result => assert.strictEqual(result, 'https://github.com/<foo\rbar baz>'))
   })
 
   it('should preserve an anchor', function () {
     return uu.expand('http://example.org/regular#foobar')
-      .then(result => assert.equal(result, 'https://github.com/#foobar'))
+      .then(result => assert.strictEqual(result, 'https://github.com/#foobar'))
   })
 
   it('should respect destination anchor', function () {
     return uu.expand('http://example.org/hashy#quux')
-      .then(result => assert.equal(result, 'https://github.com/foo#bar'))
+      .then(result => assert.strictEqual(result, 'https://github.com/foo#bar'))
   })
 
   it('should accept relative urls without protocol', function () {
     return uu.expand('//example.org/regular')
-      .then(result => assert.equal(result, 'https://github.com/'))
+      .then(result => assert.strictEqual(result, 'https://github.com/'))
   })
 
   it('should accept links to relative urls without protocol', function () {
     return uu.expand('http://example.org/rel1')
-      .then(result => assert.equal(result, '//github.com/foo'))
+      .then(result => assert.strictEqual(result, '//github.com/foo'))
   })
 
   it('should reject links to relative urls without host', function () {
     return uu.expand('http://example.org/rel2')
       .then(() => { throw new Error('error should be thrown here') })
-      .catch(err => assert.equal(err.message, 'Redirected to an invalid location'))
+      .catch(err => assert.strictEqual(err.message, 'Redirected to an invalid location'))
   })
 
   it('should properly expand url with last null fetch in nested redirects', function () {
     return uu.expand('http://example.org/l1')
-      .then(result => assert.equal(result, 'http://example.org/l2'))
+      .then(result => assert.strictEqual(result, 'http://example.org/l2'))
   })
 })

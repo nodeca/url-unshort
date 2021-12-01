@@ -21,7 +21,7 @@ describe('Default', function () {
     })
 
     return uu.expand('http://example.org/foo')
-      .then(result => assert.equal(result, 'https://github.com/0'))
+      .then(result => assert.strictEqual(result, 'https://github.com/0'))
   })
 
   it('should parse meta tags', function () {
@@ -32,7 +32,7 @@ describe('Default', function () {
     })
 
     return uu.expand('http://example.org/bar')
-      .then(result => assert.equal(result, 'https://github.com/1'))
+      .then(result => assert.strictEqual(result, 'https://github.com/1'))
   })
 
   it('should not process file if it\'s not html', function () {
@@ -43,7 +43,7 @@ describe('Default', function () {
     })
 
     return uu.expand('http://example.org/zzz')
-      .then(result => assert.equal(result, null))
+      .then(result => assert.strictEqual(result, null))
   })
 
   it('should return nothing on 404', function () {
@@ -53,7 +53,7 @@ describe('Default', function () {
     })
 
     return uu.expand('http://example.org/baz')
-      .then(result => assert.equal(result, null))
+      .then(result => assert.strictEqual(result, null))
   })
 
   it('should return errors on unknown status codes', function () {
