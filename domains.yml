@@ -37,7 +37,7 @@
 - t.co
 # 2021.11.30 Only root page works
 - thecow.me:
-    select: '#glu'
+    link_selector: '#glu'
 # 2016.07.13, Domain blacklisted by idiots from RKN. Viva Russia!
 - tiny.cc
 - tiny.pl
@@ -48,16 +48,16 @@
 # ?utm_source=tr.im&utm_medium=no_referer&utm_campaign=tr.im%2FTICyr&utm_content=direct_input
 # to redirected links. Also can ban NordVPN IPs.
 - tr.im:
-    select: '.mad-container .btn'
+    link_selector: '.mad-container .btn'
 - tw.gs:
-    select: '#lurllink > a'
+    link_selector: '#lurllink > a'
 # 2021.11.30 Unstable, but works.
 - url.ie
 - v.gd:
-    select: '.biglink'
+    link_selector: '.biglink'
 - vk.cc
 - vk.com
 - vurl.com:
-    select: '.vut + .button'
+    link_selector: '.vut + .button'
 - wp.me
 - xurl.es
