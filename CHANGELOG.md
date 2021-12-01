@@ -1,3 +1,11 @@
+6.0.0 / WIP
+------------------
+
+- Cleanup deprecated redirectors. Move deprecation info to separate file.
+- node.js v14+ required.
+- Deps bump.
+
+
 5.0.0 / 2017-06-08
 ------------------
 
