@@ -5,8 +5,8 @@ const assert = require('assert')
 const fs = require('fs')
 const YAML = require('js-yaml')
 const path = require('path')
-const punycode = require('punycode')
-const URL = require('url')
+const punycode = require('punycode/')
+const URL = require('url').URL
 const urls = YAML.load(fs.readFileSync(path.join(__dirname, 'services.yml'), 'utf8'))
 const domains = YAML.load(fs.readFileSync(path.join(__dirname, '..', 'domains.yml'), 'utf8'))
 const uu = require('../')()
@@ -33,7 +33,7 @@ describe('Services', function () {
     })
 
     Object.keys(urls).forEach(function (url) {
-      const u = URL.parse(url)
+      const u = new URL(url)
 
       actual.push(u.host)
     })

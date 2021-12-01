@@ -12,4 +12,3 @@ rules:
   padded-blocks: 0
   no-var: 0
   no-multiple-empty-lines: 0
-  'node/no-deprecated-api': 0
