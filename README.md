@@ -38,15 +38,17 @@ $ npm install url-unshort
 ## Basic usage
 
 ```js
-let uu = require('url-unshort')();
+const uu = require('url-unshort')()
 
-uu.expand('http://goo.gl/HwUfwd')
-  .then(url => {
-    if (url) console.log('Original url is: ${url}');
-    // no shortening service or an unknown one is used
-    else console.log('This url can\'t be expanded');
-  })
+try {
+  const url = await uu.expand('http://goo.gl/HwUfwd')
+
+  if (url) console.log('Original url is: ${url}')
+  else console.log('This url can\'t be expanded')
+
+} catch (err) {
   .catch(err => console.log(err));
+}
 ```
 
 ## API
@@ -56,12 +58,12 @@ uu.expand('http://goo.gl/HwUfwd')
 When you create an instance, you can pass an options object to fine-tune unshortener behavior.
 
 ```js
-var uu = require('url-unshort')({
+const uu = require('url-unshort')({
   nesting: 3,
   cache: {
-    get: function (key) {}, // -> Promise
-    set: function (key, value) {} // -> Promise
-  },
+    get: async key => {},
+    set: async (key, value) => {}
+  }
 });
 ```
 
@@ -91,15 +93,18 @@ Available options are:
 Expand an URL supplied. If we don't know how to expand it, returns `null`.
 
 ```js
-let uu = require('url-unshort')();
+const uu = require('url-unshort')();
 
-uu.expand('http://goo.gl/HwUfwd')
-  .then(url => {
-    if (url) console.log('Original url is: ${url}');
-    // no shortening service or an unknown one is used
-    else console.log('This url can\'t be expanded');
-  })
-  .catch(err => console.log(err));
+try {
+  const url = await uu.expand('http://goo.gl/HwUfwd')
+
+  if (url) console.log('Original url is: ${url}')
+  // no shortening service or an unknown one is used
+  else console.log('This url can\'t be expanded')
+
+} catch (err) {
+  console.log(err)
+}
 ```
 
 ### uu.add(domain [, options])
@@ -107,24 +112,46 @@ uu.expand('http://goo.gl/HwUfwd')
 Add a new url shortening service (domain name or an array of them) to the white
 list of domains we know how to expand.
 
-If domain name is already added, its configuration gets overwritten.
-
 ```js
-uu.add([ 'tinyurl.com', 'bit.ly' ]);
+uu.add([ 'tinyurl.com', 'bit.ly' ])
 ```
 
 The default behavior will be to follow the URL with a HEAD request and check
 the status code. If it's `3xx`, return the `Location` header. You can override
 this behavior by supplying your own function in options.
 
-Options:
+**options**:
 
- - `select` (String)   - jquery-like selector used to retrieve url from the page
- - `fetch`  (Function) - specify a custom function to retrieve expanded url,
-    see `./lib/providers/*` sources for example.
- - `match`  (String|RegExp) - custom regexp to use to match this domain.
+- `aliases` (Array) - Optional. List of alternate domaine names, if exist.
+- `match` (String|RegExp) - Optional. Custom regexp to use for URL match.
+  For example, if you need to match wildcard prefixes or country-specific
+  suffixes. If used with `validate`, then regexp may be not precise, only to
+  filter out noise. If `match` not passed, then exact value auto-generated from
+  `domain` & `aliases`.
+- `validate` (Function) - Optional. Does exact URL check, when complex logic
+  required and regexp is not enouth (when `match` is only preliminary). See
+  `./lib/providers/*` for example.
+- `fetch`  (Function) - Optional. Specifies custom function to retrieve expanded
+  url, see `./lib/providers/*` for examples. If not set - default method used
+  (it checks 30X redirect codes & `<meta http-equiv="refresh" content='...'>`
+  in HTML).
+- `link_selector` (String) - Optional. Some sites may return HTML pages instead
+  of 302 redirects. This option allows use jquery-like selector to extract
+  `<a href="...">` value.
 
-So a full-featured example of adding a domain would look like this:
+Example:
+
+```js
+const uu = require('url-unshort')()
+
+uu.add('notlong.com', {
+  match: '^(https?:)//[a-zA-Z0-9_-]+[.]notlong[.]com/'
+})
+
+uu.add('tw.gs', {
+  link_selector: '#lurllink > a'
+})
+```
 
 
 ## Security considerations
@@ -141,11 +168,11 @@ valid url as an output, you're encouraged to re-encode it like this:
 ```js
 var URL = require('url');
 
-uu.expand('http://goo.gl/HwUfwd')
-  .then(url => {
-    return url ? URL.format(URL.parse(url, null, true)) : null;
-  })
-  .then(url => console.log(url));
+url = await uu.expand('http://goo.gl/HwUfwd')
+
+if (url) url = URL.format(URL.parse(url, null, true))
+
+console.log(url));
 ```
 
 Relative urls without a protocol are accepted, relative urls without a host

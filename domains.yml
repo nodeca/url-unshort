@@ -20,12 +20,12 @@
 - flic.kr
 - goo.gl
 - google.com:
-    match: '^(https?:)//(www\.)?google(\.\w+)(\.\w+)?/'
+    match: '^(https?:)//(www[.])?google([.]\w+)([.]\w+)?/'
 - is.gd
 - korta.nu
 - merky.de
 - notlong.com:
-    match: '^(https?:)//[a-zA-Z0-9_-]+\.notlong\.com/'
+    match: '^(https?:)//[a-zA-Z0-9_-]+[.]notlong[.]com/'
 - ow.ly:
     aliases: [ owl.li, ht.ly ]
 - shorl.com
