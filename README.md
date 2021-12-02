@@ -69,7 +69,7 @@ const uu = require('url-unshort')({
 
 Available options are:
 
-- `nesting` (Number, default: `3`) - stop resolving urls
+- **nesting** (Number, default: `3`) - stop resolving urls
   when `nesting` amount of redirects is reached.
 
   It happens if one shortening service refers to a link belonging to
@@ -78,12 +78,12 @@ Available options are:
 
   If this limit is reached, `expand()` will return an error.
 
-- `cache` (Object) - set a custom cache implementation (e.g. if you wish
+- **cache** (Object) - set a custom cache implementation (e.g. if you wish
   to store urls in Redis).
 
   You need to specify 2 promise-based functions, `set(key, value)` & `get(key)`.
 
-- `request` (Object) - default options for
+- **request** (Object) - default options for
   [got](https://github.com/sindresorhus/got) in `.request()` method. Can be
   used to set custom `User-Agent` and other headers.
 
@@ -120,22 +120,22 @@ The default behavior will be to follow the URL with a HEAD request and check
 the status code. If it's `3xx`, return the `Location` header. You can override
 this behavior by supplying your own function in options.
 
-**options**:
+Options:
 
-- `aliases` (Array) - Optional. List of alternate domaine names, if exist.
-- `match` (String|RegExp) - Optional. Custom regexp to use for URL match.
+- **aliases** (Array) - Optional. List of alternate domaine names, if exist.
+- **match** (String|RegExp) - Optional. Custom regexp to use for URL match.
   For example, if you need to match wildcard prefixes or country-specific
   suffixes. If used with `validate`, then regexp may be not precise, only to
   filter out noise. If `match` not passed, then exact value auto-generated from
   `domain` & `aliases`.
-- `validate` (Function) - Optional. Does exact URL check, when complex logic
+- **validate** (Function) - Optional. Does exact URL check, when complex logic
   required and regexp is not enouth (when `match` is only preliminary). See
   `./lib/providers/*` for example.
-- `fetch`  (Function) - Optional. Specifies custom function to retrieve expanded
+- **fetch**  (Function) - Optional. Specifies custom function to retrieve expanded
   url, see `./lib/providers/*` for examples. If not set - default method used
   (it checks 30X redirect codes & `<meta http-equiv="refresh" content='...'>`
   in HTML).
-- `link_selector` (String) - Optional. Some sites may return HTML pages instead
+- **link_selector** (String) - Optional. Some sites may return HTML pages instead
   of 302 redirects. This option allows use jquery-like selector to extract
   `<a href="...">` value.
 
