@@ -3,6 +3,8 @@
 
 - Cleanup deprecated redirectors. Move deprecation info to separate file.
 - node.js v14+ required.
+- Renamed option `select` => `link_selector`.
+- Added method `.remove()` method.
 - Deps bump.
 
 

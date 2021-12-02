@@ -153,12 +153,17 @@ uu.add('tw.gs', {
 })
 ```
 
+### uu.remove(domain)
+
+(String|Array|Undefined). Opposite to `.add()`. Remove selected domains from
+instance config. If no params passed - remove everything.
+
 
 ## Security considerations
 
 Only `http` and `https` protocols are allowed in the output. Browsers technically
 support redirects to other protocols (like `ftp` or `magnet`), but most url
-shortening services limit redirections to `http` and `https` anyway. In case
+shortening services limit redirects to `http` and `https` anyway. In case
 service redirects to an unknown protocol, `expand()` will return an error.
 
 `expand()` function returns url from the url shortening **as is** without any
