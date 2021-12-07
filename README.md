@@ -47,7 +47,7 @@ try {
   else console.log('This url can\'t be expanded')
 
 } catch (err) {
-  .catch(err => console.log(err));
+  console.log(err);
 }
 ```
 
