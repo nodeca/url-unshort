@@ -74,6 +74,10 @@ Alias: 7.ly
 
 2016.07.13. Not responding. Currently redirects to another site, old links removed.
 
+**tr.im**
+
+2022.02.02. Domain lost.
+
 **trim.li**
 
 2021.11.30. Not working.

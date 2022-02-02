@@ -38,11 +38,6 @@
 - tinyurl.com
 - tmblr.co:
     aliases: [ tumblr.com ]
-# 2016.07.13, started adding GA shit like
-# ?utm_source=tr.im&utm_medium=no_referer&utm_campaign=tr.im%2FTICyr&utm_content=direct_input
-# to redirected links. Also can ban NordVPN IPs.
-- tr.im:
-    link_selector: '.mad-container .btn'
 - tw.gs:
     link_selector: '#lurllink > a'
 # 2021.11.30 Unstable, but works.
