@@ -58,6 +58,10 @@ Alias: 7.ly
 
 2021.11.30 "We're migrating to a new server" (and nothing changed)
 
+**thecow.me**
+
+2021.11.30 Only root page works (and nothing changed)
+
 **tiny.ly**
 
 2016.07.13. Not responding.
