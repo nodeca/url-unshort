@@ -30,9 +30,6 @@
     aliases: [ owl.li, ht.ly ]
 - shorl.com
 - smu.gs
-# 2021.11.30 "We're migrating to a new server"
-- snipurl.com:
-    aliases: [ snurl.com, snipr.com, sn.im ]
 - soo.gd
 - t.co
 # 2021.11.30 Only root page works
