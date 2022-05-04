@@ -180,10 +180,6 @@ if (url) url = URL.format(URL.parse(url, null, true))
 console.log(url));
 ```
 
-Relative urls without a protocol are accepted, relative urls without a host
-name are not. You **can** receive incomplete url like `//example.org` if a
-shortening service redirects to it.
-
 ## License
 
 [MIT](https://raw.github.com/nodeca/url-unshort/master/LICENSE)

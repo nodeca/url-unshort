@@ -29,6 +29,13 @@ const urls = {
   'http://example.org/rel1': '//github.com/foo',
   'http://example.org/rel2': '/foo',
 
+  // invalid urls
+  'http://example.org/invalid_punycode': 'https://xn--/',
+
+  // internationalized domain names
+  'http://example.org/idn1': 'http://www.bücher.de/',
+  'http://example.org/idn2': 'http://www.xn--bcher-kva.de/',
+
   // l1 -> l2 -> null
   'http://example.org/l1': 'http://example.org/l2',
   'http://example.org/l2': null
@@ -97,9 +104,11 @@ describe('Expand', function () {
     assert.strictEqual(result, 'https://github.com/')
   })
 
-  it('should accept links to relative urls without protocol', async () => {
-    result = await uu.expand('http://example.org/rel1')
-    assert.strictEqual(result, '//github.com/foo')
+  it('should reject links to relative urls without protocol', async () => {
+    await assert.rejects(
+      async () => uu.expand('http://example.org/rel1'),
+      /Redirected to an invalid location/
+    )
   })
 
   it('should reject links to relative urls without host', async () => {
@@ -107,6 +116,23 @@ describe('Expand', function () {
       async () => uu.expand('http://example.org/rel2'),
       /Redirected to an invalid location/
     )
+  })
+
+  it('should reject links to invalid urls', async () => {
+    await assert.rejects(
+      async () => uu.expand('http://example.org/invalid_punycode'),
+      /Redirected to an invalid location/
+    )
+  })
+
+  it('should accept IDN (decoded)', async () => {
+    result = await uu.expand('http://example.org/idn1')
+    assert.strictEqual(result, 'http://www.bücher.de/')
+  })
+
+  it('should accept IDN (punycode)', async () => {
+    result = await uu.expand('http://example.org/idn2')
+    assert.strictEqual(result, 'http://www.xn--bcher-kva.de/')
   })
 
   it('should properly expand url with last null fetch in nested redirects', async () => {
