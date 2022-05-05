@@ -51,6 +51,29 @@ try {
 }
 ```
 
+## Retrying errors
+
+Temporary network errors are retried automatically once (`options.request.retry=1` by default).
+
+You may choose to retry some errors after an extended period of time using code like this:
+
+```js
+const uu = require('url-unshort')()
+
+try {
+  console.log(await uu.expand('http://goo.gl/HwUfwd'))
+
+} catch (err) {
+  let is_fatal = err.statusCode && !String(+err.statusCode).match(/^(5..|429|408)$/) ||
+                 err.code === 'EINVAL'
+
+  if (!is_fatal) {
+    console.log('Maybe this error would fix itself tomorrow, add scheduled task or smth')
+  }
+}
+```
+
+
 ## API
 
 ### Creating an instance
