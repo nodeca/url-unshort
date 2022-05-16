@@ -59,16 +59,36 @@ You may choose to retry some errors after an extended period of time using code 
 
 ```js
 const uu = require('url-unshort')()
+const { isErrorFatal } = require('url-unshort')
+let tries = 0
 
-try {
-  console.log(await uu.expand('http://goo.gl/HwUfwd'))
+while (true) {
+  try {
+    tries++
+    const url = await uu.expand('http://goo.gl/HwUfwd')
 
-} catch (err) {
-  let is_fatal = err.statusCode && !String(+err.statusCode).match(/^(5..|429|408)$/) ||
-                 err.code === 'EINVAL'
+    // If url is expanded, it returns string (expanded url);
+    // "undefined" is returned if service is unknown
+    if (url) console.log(`Original url is: ${url}`)
+    else console.log("This url can't be expanded")
+    break
 
-  if (!is_fatal) {
-    console.log('Maybe this error would fix itself tomorrow, add scheduled task or smth')
+  } catch (err) {
+    // use isErrorFatal function to check if url can be retried or not
+    if (isErrorFatal(err)) {
+      // this url can't be expanded (e.g. 404 error)
+      console.log(`Unshort error (fatal): ${err}`)
+      break
+    }
+
+    // Temporary error, trying again in 10 minutes
+    // (5xx errors, ECONNRESET, etc.)
+    console.log(`Unshort error (retrying): ${err}`)
+    if (tries >= 3) {
+      console.log(`Too many errors, aborting`)
+      break
+    }
+    await new Promise(resolve => setTimeout(resolve, 10 * 60 * 1000))
   }
 }
 ```
