@@ -5,6 +5,7 @@
 - node.js v14+ required.
 - Renamed option `select` => `link_selector`.
 - Added method `.remove()` method.
+- Add `isErrorFatal` helper.
 - Deps bump.
 
 
