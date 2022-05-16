@@ -3,92 +3,70 @@
 /* eslint-env mocha */
 
 const assert = require('assert')
-const http = require('http')
+const nock = require('nock')
 const { isErrorFatal } = require('../')
 
 describe('Default', function () {
   let uu
-  let server
-  let host
-  let callback
 
   before(async () => {
-    server = http.createServer((req, res) => {
-      callback(req, res)
-    })
-
-    await new Promise(resolve => {
-      server.listen(resolve)
-    })
-
-    host = `localhost:${server.address().port}`
-
     uu = require('..')({
       request: {
-        retry: {
-          calculateDelay: () => {
-            return 0 // no delay between retries
-          }
-        }
+        retry: 0
       }
     })
-    uu.add(host)
+    uu.add('example.org')
   })
 
   it('should process redirect', async () => {
-    callback = (_, res) => {
-      res.statusCode = 301
-      res.setHeader('location', 'https://github.com/0')
-      res.end()
-    }
+    nock('http://example.org')
+      .get('/foo')
+      .reply(301, '', { location: 'https://github.com/0' })
 
-    const result = await uu.expand(`http://${host}/foo`)
+    const result = await uu.expand('http://example.org/foo')
     assert.strictEqual(result, 'https://github.com/0')
   })
 
   it('should parse meta tags', async () => {
-    callback = (_, res) => {
-      res.statusCode = 200
-      res.setHeader('content-type', 'text/html')
-      res.end('<html><head><meta http-equiv="refresh" content="10; url=https://github.com/1 "></head><body></body></html>')
-    }
+    const html = '<html><head><meta http-equiv="refresh" content="10; url=https://github.com/1 "></head><body></body></html>'
+    nock('http://example.org')
+      .get('/bar')
+      .reply(200, html, { 'content-type': 'text/html' })
 
-    const result = await uu.expand(`http://${host}/bar`)
+    const result = await uu.expand('http://example.org/bar')
     assert.strictEqual(result, 'https://github.com/1')
   })
 
   it("should not process file if it's not html", async () => {
-    callback = (_, res) => {
-      res.statusCode = 200
-      res.setHeader('content-type', 'application/json')
-      res.end('<html><head><meta http-equiv="refresh" content="10; url=https://github.com/1 "></head><body></body></html>')
-    }
+    const html = '<html><head><meta http-equiv="refresh" content="10; url=https://github.com/1 "></head><body></body></html>'
+    nock('http://example.org')
+      .get('/zzz')
+      .reply(200, html, { 'content-type': 'application/json' })
 
-    const result = await uu.expand(`http://${host}/zzz`)
+    const result = await uu.expand('http://example.org/zzz')
     assert.strictEqual(result, null)
   })
 
   it('should return nothing on 404', async () => {
-    callback = (_, res) => {
-      res.statusCode = 404
-      res.end()
-    }
+    nock('http://example.org')
+      .get('/baz')
+      .reply(404, '')
 
-    const result = await uu.expand(`http://${host}/baz`)
+    const result = await uu.expand('http://example.org/baz')
     assert.strictEqual(result, null)
   })
 
   it('should return errors on unknown status codes', async () => {
-    callback = (_, res) => {
-      res.statusCode = 503
-      res.end()
-    }
+    nock('http://example.org')
+      .get('/bazzz')
+      .reply(503, '')
 
     await assert.rejects(
-      async () => uu.expand(`http://${host}/baz`),
+      async () => uu.expand('http://example.org/bazzz'),
       err => {
         assert.match(err.message, /Remote server error/)
         assert.strictEqual(err.code, 'EHTTP')
+        assert.strictEqual(err.statusCode, 503)
         assert.strictEqual(isErrorFatal(err), false)
         return true
       }
@@ -96,14 +74,12 @@ describe('Default', function () {
   })
 
   it('should treat invalid urls as fatal error', async () => {
-    callback = (_, res) => {
-      res.statusCode = 301
-      res.setHeader('location', 'http://xn--/1')
-      res.end()
-    }
+    nock('http://example.org')
+      .get('/invalid')
+      .reply(301, '', { location: 'http://xn--/1' })
 
     await assert.rejects(
-      async () => uu.expand(`http://${host}/invalid`),
+      async () => uu.expand('http://example.org/invalid'),
       err => {
         assert.match(err.message, /Redirected to an invalid location/)
         assert.strictEqual(err.code, 'EBADREDIRECT')
@@ -114,9 +90,5 @@ describe('Default', function () {
   })
 
   it.skip('should fail on page > 100K', async () => {
-  })
-
-  after(() => {
-    server.close()
   })
 })
