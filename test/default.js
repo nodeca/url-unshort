@@ -90,5 +90,12 @@ describe('Default', function () {
   })
 
   it.skip('should fail on page > 100K', async () => {
+    const html = ' '.repeat(110000) + '<html><head><meta http-equiv="refresh" content="10; url=https://github.com/1 "></head><body></body></html>'
+    nock('http://example.org')
+      .get('/large')
+      .reply(200, html, { 'content-type': 'text/html' })
+
+    const result = await uu.expand('http://example.org/large')
+    assert.strictEqual(result, null)
   })
 })
