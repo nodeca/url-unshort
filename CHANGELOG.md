@@ -1,4 +1,4 @@
-6.0.0 / WIP
+6.0.0 / 2022-05-17
 ------------------
 
 - Cleanup deprecated redirectors. Move deprecation info to separate file.
