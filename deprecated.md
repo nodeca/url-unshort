@@ -60,11 +60,15 @@ Alias: 7.ly
 
 **snipurl.com**
 
-2021.11.30 "We're migrating to a new server" (and nothing changed)
+2021.11.30. "We're migrating to a new server" (and nothing changed)
+
+**soo.gd**
+
+2022.10.22. Domain lost.
 
 **thecow.me**
 
-2021.11.30 Only root page works (and nothing changed)
+2021.11.30. Only root page works (and nothing changed)
 
 **tiny.ly**
 
