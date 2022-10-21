@@ -43,7 +43,8 @@
 - v.gd:
     link_selector: '.biglink'
 - vk.cc
-- vk.com
+- vk.com:
+    aliases: [ vkontakte.ru ]
 - vurl.com:
     link_selector: '.padder a:nth-child(3)'
 - wp.me
