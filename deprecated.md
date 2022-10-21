@@ -22,6 +22,10 @@ Alias: 7.ly
 
 2016.12.06. Empty main page. 404 to all links.
 
+**korta.nu**
+
+2022.10.22. Not working (accedd denied)
+
 **macte.ch**
 
 2016.07.13. Removed old links & disabled foreign domains

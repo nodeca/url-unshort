@@ -22,7 +22,6 @@
 - google.com:
     match: '^(https?:)//(www[.])?google([.]\w+)([.]\w+)?/'
 - is.gd
-- korta.nu
 - merky.de
 - notlong.com:
     match: '^(https?:)//[a-zA-Z0-9_-]+[.]notlong[.]com/'
