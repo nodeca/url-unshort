@@ -36,6 +36,7 @@
 - tinyurl.com
 - tmblr.co:
     aliases: [ tumblr.com ]
+# 2022.10.22 Shows DB Error
 - tw.gs:
     link_selector: '#lurllink > a'
 # 2021.11.30 Unstable, but works.
