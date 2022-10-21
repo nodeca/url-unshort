@@ -45,6 +45,6 @@
 - vk.cc
 - vk.com
 - vurl.com:
-    link_selector: '.vut + .button'
+    link_selector: '.padder a:nth-child(3)'
 - wp.me
 - xurl.es
